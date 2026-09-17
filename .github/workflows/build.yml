@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,3 +28,16 @@ jobs:
         with:
           name: firefox-clearcontainer
           path: web-ext-artifacts/*.zip
+
+      - name: Publish "latest" release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: latest
+          name: Latest build
+          commit: ${{ github.sha }}
+          artifacts: web-ext-artifacts/*.zip
+          allowUpdates: true
+          removeArtifacts: true
+          replacesArtifacts: true
+          makeLatest: true
+          body: Automatically built from the latest push to `main` (${{ github.sha }}).
