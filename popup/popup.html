@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Clear Container</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <h1>Clear Container</h1>
+    <p class="subtitle">Wipe a container's cookies, storage &amp; IndexedDB in place.</p>
+  </header>
+
+  <main id="app">
+    <div id="loading">Loading containers…</div>
+
+    <div id="empty" class="hidden">
+      <p>No containers found. Create one in Firefox's container settings first.</p>
+    </div>
+
+    <div id="picker" class="hidden">
+      <label for="container-select">Container</label>
+      <select id="container-select"></select>
+
+      <div id="tab-warning" class="notice hidden"></div>
+
+      <label class="checkbox-row">
+        <input type="checkbox" id="also-cache">
+        <span>Also clear browser cache &amp; service workers <strong>(affects ALL containers, not just this one)</strong></span>
+      </label>
+
+      <div id="proxy-note" class="notice info hidden"></div>
+
+      <button id="clear-btn" class="danger">Clear Container</button>
+
+      <div id="confirm-row" class="hidden">
+        <p class="confirm-text">This permanently deletes this container's cookies, saved logins/site storage and IndexedDB data. It cannot be undone.</p>
+        <div class="confirm-buttons">
+          <button id="confirm-btn" class="danger">Yes, wipe it</button>
+          <button id="cancel-btn">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="result" class="hidden"></div>
+  </main>
+
+  <script src="popup.js"></script>
+</body>
+</html>

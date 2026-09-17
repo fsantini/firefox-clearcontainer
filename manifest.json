@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+  "name": "Clear Container",
+  "version": "1.0.0",
+  "description": "Wipe a container's cookies, local storage and IndexedDB in place, without deleting the container or breaking per-container proxy assignments.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "clearcontainer@francesco.santini",
+      "strict_min_version": "91.0"
+    }
+  },
+  "permissions": [
+    "contextualIdentities",
+    "browsingData",
+    "cookies",
+    "tabs",
+    "storage",
+    "menus"
+  ],
+  "icons": {
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg"
+  },
+  "browser_action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": "icons/icon.svg",
+    "default_title": "Clear Container"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  }
+}
