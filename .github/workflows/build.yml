@@ -20,14 +20,23 @@ jobs:
       - name: Lint with web-ext
         run: npx --yes web-ext lint --source-dir .
 
-      - name: Build extension package
-        run: npx --yes web-ext build --source-dir . --artifacts-dir web-ext-artifacts
+      - name: Build and sign extension
+        run: |
+          npx --yes web-ext sign \
+            --source-dir . \
+            --artifacts-dir web-ext-artifacts \
+            --channel unlisted \
+            --api-key "$WEB_EXT_API_KEY" \
+            --api-secret "$WEB_EXT_API_SECRET"
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+          WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: firefox-clearcontainer
-          path: web-ext-artifacts/*.zip
+          path: web-ext-artifacts/*.xpi
 
       - name: Publish "latest" release
         uses: ncipollo/release-action@v1
@@ -35,7 +44,7 @@ jobs:
           tag: latest
           name: Latest build
           commit: ${{ github.sha }}
-          artifacts: web-ext-artifacts/*.zip
+          artifacts: web-ext-artifacts/*.xpi
           allowUpdates: true
           removeArtifacts: true
           replacesArtifacts: true
